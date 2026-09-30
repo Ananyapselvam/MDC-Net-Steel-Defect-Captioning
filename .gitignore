@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Dataset - DO NOT UPLOAD
+data/raw/
+
+
+# Generated processed data
+data/processed/
+
+# Original MDC-Net repository - kept locally for reference
+MDC-Net-Multimodal-Defect-Captioning-Network-For-Surface-Steel-Defects/
+
+# Model files
+*.pth
+*.pt
+*.ckpt
+
+# Experiment outputs
+results/
+runs/
+wandb/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
