@@ -25,8 +25,8 @@ def get_val_transforms():
 
     return A.Compose(
         [],
-        bbox_params=A.BboxParams(
-            format="pascal_voc",
-            label_fields=["labels"]
-        )
+        #bbox_params=A.BboxParams(
+          #  format="pascal_voc",
+         #   label_fields=["labels"]
+        #)
     )
