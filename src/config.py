@@ -40,7 +40,7 @@ class CFG:
     # -------------------------
     # Training
     # -------------------------
-    batch_size = 4
+    batch_size = 2
     epochs = 20
 
     learning_rate = 1e-5

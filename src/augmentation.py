@@ -22,11 +22,8 @@ def get_train_transforms():
 
 
 def get_val_transforms():
-
-    return A.Compose(
-        [],
+    return A.Compose([])
         #bbox_params=A.BboxParams(
           #  format="pascal_voc",
          #   label_fields=["labels"]
         #)
-    )

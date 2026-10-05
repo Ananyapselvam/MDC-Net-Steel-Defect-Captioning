@@ -83,8 +83,10 @@ class NEUDataset(Dataset):
             bbox = transformed["bboxes"][0]
         #label = transformed["labels"][0]
         else:
-            transformed = self.transform(image=image)
-            image = transformed["image"]
+            image = cv2.resize(image,
+            (CFG.img_size, CFG.img_size))
+
+        image = image.astype("float32") / 255.0
 
         # HWC → CHW
         image = torch.tensor(
