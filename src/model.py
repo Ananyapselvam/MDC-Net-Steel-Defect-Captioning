@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import timm
 
-from config import CFG
+from src.config import CFG
 
 
 class Encoder(nn.Module):
@@ -15,6 +15,9 @@ class Encoder(nn.Module):
     ):
         super().__init__()
 
+        # --------------------------------------------------
+        # Visual encoder: DeiT3
+        # --------------------------------------------------
         self.model = timm.create_model(
             model_name,
             num_classes=0,
@@ -22,19 +25,104 @@ class Encoder(nn.Module):
             pretrained=pretrained
         )
 
+        # Convert visual features to decoder dimension
         self.bottleneck = nn.AdaptiveAvgPool1d(out_dim)
 
-    def forward(self, x):
+        # --------------------------------------------------
+        # Defect classification head
+        # 6 defect classes
+        # --------------------------------------------------
+        self.classifier = nn.Linear(
+            out_dim,
+            CFG.num_classes
+        )
 
+        # --------------------------------------------------
+        # Spatial location classification head
+        # 9 spatial classes
+        # --------------------------------------------------
+        self.location_classifier = nn.Linear(
+            out_dim,
+            CFG.num_locations
+        )
+
+        # --------------------------------------------------
+        # Bounding-box projection
+        #
+        # bbox = [xmin, ymin, xmax, ymax]
+        # normalized to [0, 1]
+        # --------------------------------------------------
+        self.bbox_projection = nn.Sequential(
+            nn.Linear(4, 128),
+            nn.ReLU(),
+            nn.Linear(128, out_dim)
+        )
+
+    def forward(
+        self,
+        x,
+        bboxes
+    ):
+
+        # --------------------------------------------------
+        # Extract visual features
+        # --------------------------------------------------
         features = self.model(x)
 
         # Remove CLS token
         features = features[:, 1:]
 
-        # Convert feature dimension to the decoder dimension
+        # Convert feature dimension
         features = self.bottleneck(features)
 
-        return features
+        # --------------------------------------------------
+        # Global visual representation
+        # --------------------------------------------------
+        global_features = features.mean(
+            dim=1
+        )
+
+        # --------------------------------------------------
+        # Defect classification
+        # --------------------------------------------------
+        class_logits = self.classifier(
+            global_features
+        )
+
+        # --------------------------------------------------
+        # Location classification
+        # --------------------------------------------------
+        location_logits = (
+            self.location_classifier(
+                global_features
+            )
+        )
+
+        # --------------------------------------------------
+        # Convert bbox into location token
+        # --------------------------------------------------
+        bbox_features = self.bbox_projection(
+            bboxes
+        )
+
+        bbox_features = bbox_features.unsqueeze(1)
+
+        # --------------------------------------------------
+        # Append bbox information to visual memory
+        # --------------------------------------------------
+        features = torch.cat(
+            [
+                features,
+                bbox_features
+            ],
+            dim=1
+        )
+
+        return (
+            features,
+            class_logits,
+            location_logits
+        )
 
 
 class Decoder(nn.Module):
@@ -49,16 +137,29 @@ class Decoder(nn.Module):
     ):
         super().__init__()
 
+        # --------------------------------------------------
+        # Token embedding
+        # --------------------------------------------------
         self.embedding = nn.Embedding(
             vocab_size,
             embed_dim,
             padding_idx=CFG.pad_idx
         )
 
+        # --------------------------------------------------
+        # Positional embedding
+        # --------------------------------------------------
         self.pos_embedding = nn.Parameter(
-            torch.randn(1, max_len, embed_dim)
+            torch.randn(
+                1,
+                max_len,
+                embed_dim
+            )
         )
 
+        # --------------------------------------------------
+        # Transformer decoder
+        # --------------------------------------------------
         decoder_layer = nn.TransformerDecoderLayer(
             d_model=embed_dim,
             nhead=num_heads,
@@ -70,28 +171,58 @@ class Decoder(nn.Module):
             num_layers=num_layers
         )
 
+        # --------------------------------------------------
+        # Vocabulary prediction
+        # --------------------------------------------------
         self.fc_out = nn.Linear(
             embed_dim,
             vocab_size
         )
 
-    def forward(self, tgt, memory):
+    def forward(
+        self,
+        tgt,
+        memory
+    ):
 
-        tgt_emb = self.embedding(tgt)
+        # --------------------------------------------------
+        # Token embeddings
+        # --------------------------------------------------
+        tgt_emb = self.embedding(
+            tgt
+        )
 
         seq_len = tgt_emb.size(1)
 
-        tgt_emb = tgt_emb + self.pos_embedding[:, :seq_len]
-
-        tgt_mask = nn.Transformer.generate_square_subsequent_mask(
-            seq_len,
-            device=tgt.device
+        # Add positional embeddings
+        tgt_emb = (
+            tgt_emb
+            + self.pos_embedding[
+                :, :seq_len
+            ]
         )
 
+        # --------------------------------------------------
+        # Causal mask
+        # --------------------------------------------------
+        tgt_mask = torch.triu(
+        torch.ones(
+            seq_len,
+            seq_len,
+            device=tgt.device,
+            dtype=torch.bool
+        ),
+            diagonal=1
+        )
+
+        # Ignore padding tokens
         tgt_padding_mask = (
             tgt == CFG.pad_idx
         )
 
+        # --------------------------------------------------
+        # Transformer decoding
+        # --------------------------------------------------
         output = self.decoder(
             tgt=tgt_emb,
             memory=memory,
@@ -99,7 +230,12 @@ class Decoder(nn.Module):
             tgt_key_padding_mask=tgt_padding_mask
         )
 
-        output = self.fc_out(output)
+        # --------------------------------------------------
+        # Vocabulary logits
+        # --------------------------------------------------
+        output = self.fc_out(
+            output
+        )
 
         return output
 
@@ -113,13 +249,35 @@ class MDCNet(nn.Module):
 
         self.decoder = Decoder()
 
-    def forward(self, images, captions):
+    def forward(
+        self,
+        images,
+        captions,
+        bboxes
+    ):
 
-        memory = self.encoder(images)
+        # --------------------------------------------------
+        # Encode image + bbox
+        # --------------------------------------------------
+        (
+            memory,
+            class_logits,
+            location_logits
+        ) = self.encoder(
+            images,
+            bboxes
+        )
 
-        output = self.decoder(
+        # --------------------------------------------------
+        # Generate caption
+        # --------------------------------------------------
+        caption_output = self.decoder(
             captions,
             memory
         )
 
-        return output
+        return (
+            caption_output,
+            class_logits,
+            location_logits
+        )
