@@ -1,6 +1,6 @@
 import pandas as pd
 
-from dataset import NEUDataset
+from src.datasetwbox import NEUDataset
 from vocabulary import Vocabulary
 
 

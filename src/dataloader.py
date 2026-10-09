@@ -3,7 +3,7 @@ import torch
 from torch.utils.data import DataLoader
 from torch.nn.utils.rnn import pad_sequence
 
-from src.dataset import NEUDataset
+from src.datasetwbox import NEUDataset
 from src.vocabulary import Vocabulary
 from src.config import CFG
 

@@ -22,32 +22,6 @@ class NEUDataset(Dataset):
 
     def __init__(self, csv_file, vocab, train=True):
         self.df = pd.read_csv(csv_file)
-
-        # Option A: train/evaluate with exactly one annotated defect per image.
-        # If an image has multiple annotations, keep the largest box. This is
-        # deterministic and uses the same rule for train/validation/test.
-        required = {"image_id", "xmin", "ymin", "xmax", "ymax"}
-        missing = required - set(self.df.columns)
-        if missing:
-            raise ValueError(
-                f"CSV is missing required columns for single-box selection: "
-                f"{sorted(missing)}"
-            )
-
-        widths = (self.df["xmax"] - self.df["xmin"]).clip(lower=0)
-        heights = (self.df["ymax"] - self.df["ymin"]).clip(lower=0)
-        self.df["_selection_area"] = widths * heights
-        self.df = (
-            self.df.sort_values(
-                ["image_id", "_selection_area"],
-                ascending=[True, False],
-                kind="mergesort",
-            )
-            .drop_duplicates(subset=["image_id"], keep="first")
-            .drop(columns=["_selection_area"])
-            .reset_index(drop=True)
-        )
-
         self.vocab = vocab
         self.train = train
 

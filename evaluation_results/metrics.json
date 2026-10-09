@@ -1,0 +1,458 @@
+{
+  "checkpoint": "best_mdc_net_single_box.pth",
+  "test_images": 412,
+  "classification_accuracy": 0.9587378640776699,
+  "weighted_precision": 0.9637971983042657,
+  "weighted_recall": 0.9587378640776699,
+  "weighted_f1": 0.9591405267464085,
+  "location_accuracy": 0.23300970873786409,
+  "mean_bbox_iou": 0.1688918896097707,
+  "class_names": [
+    "crazing",
+    "scratches",
+    "rolled-in_scale",
+    "pitted_surface",
+    "patches",
+    "inclusion"
+  ],
+  "confusion_matrix": [
+    [
+      69,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      60,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      59,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      44,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      8,
+      79,
+      0
+    ],
+    [
+      0,
+      8,
+      0,
+      0,
+      1,
+      84
+    ]
+  ],
+  "per_class_roc_auc": {
+    "crazing": 1.0,
+    "scratches": 0.9950047348484848,
+    "rolled-in_scale": 1.0,
+    "pitted_surface": 0.9897480237154149,
+    "patches": 0.9519540229885057,
+    "inclusion": 0.979910338086089
+  },
+  "sample_predictions": [
+    {
+      "image_id": "crazing_110.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.525,
+        0.09,
+        0.965,
+        0.375
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1836,
+        0.213,
+        0.7756,
+        0.7415
+      ],
+      "IoU": 0.1021,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_110.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.005,
+        0.08,
+        0.445,
+        0.395
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1836,
+        0.213,
+        0.7756,
+        0.7415
+      ],
+      "IoU": 0.1178,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_111.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.185,
+        0.14,
+        0.835,
+        0.545
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1848,
+        0.2501,
+        0.7976,
+        0.737
+      ],
+      "IoU": 0.4743,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_111.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.595,
+        0.06,
+        0.995,
+        0.63
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1848,
+        0.2501,
+        0.7976,
+        0.737
+      ],
+      "IoU": 0.1713,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_135.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.065,
+        0.115,
+        0.79,
+        0.53
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1779,
+        0.2453,
+        0.7803,
+        0.7274
+      ],
+      "IoU": 0.4085,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_135.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.25,
+        0.585,
+        0.89,
+        0.955
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1779,
+        0.2453,
+        0.7803,
+        0.7274
+      ],
+      "IoU": 0.1672,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_139.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.005,
+        0.025,
+        0.495,
+        0.35
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1729,
+        0.2441,
+        0.7688,
+        0.6899
+      ],
+      "IoU": 0.0872,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_139.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.035,
+        0.415,
+        0.485,
+        0.68
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1729,
+        0.2441,
+        0.7688,
+        0.6899
+      ],
+      "IoU": 0.2737,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_144.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.21,
+        0.12,
+        0.945,
+        0.355
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1761,
+        0.267,
+        0.7647,
+        0.6947
+      ],
+      "IoU": 0.1299,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_144.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.25,
+        0.455,
+        0.635,
+        0.785
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1761,
+        0.267,
+        0.7647,
+        0.6947
+      ],
+      "IoU": 0.322,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_151.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.455,
+        0.105,
+        0.67,
+        0.53
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1998,
+        0.2327,
+        0.7867,
+        0.7638
+      ],
+      "IoU": 0.1885,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_178.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.015,
+        0.585,
+        0.725,
+        0.92
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1802,
+        0.2582,
+        0.7725,
+        0.7121
+      ],
+      "IoU": 0.1583,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_178.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.065,
+        0.19,
+        0.465,
+        0.57
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1802,
+        0.2582,
+        0.7725,
+        0.7121
+      ],
+      "IoU": 0.2675,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_179.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.005,
+        0.035,
+        0.55,
+        0.395
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1844,
+        0.2702,
+        0.7885,
+        0.6936
+      ],
+      "IoU": 0.1123,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_179.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.005,
+        0.36,
+        0.4,
+        0.755
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1844,
+        0.2702,
+        0.7885,
+        0.6936
+      ],
+      "IoU": 0.2116,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_184.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.01,
+        0.32,
+        0.505,
+        0.635
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1751,
+        0.2407,
+        0.7892,
+        0.7004
+      ],
+      "IoU": 0.3109,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_184.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.29,
+        0.665,
+        0.665,
+        0.955
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1751,
+        0.2407,
+        0.7892,
+        0.7004
+      ],
+      "IoU": 0.0351,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_184.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.55,
+        0.395,
+        0.995,
+        0.615
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1751,
+        0.2407,
+        0.7892,
+        0.7004
+      ],
+      "IoU": 0.1606,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_192.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.685,
+        0.45,
+        0.99,
+        0.99
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1824,
+        0.2664,
+        0.7879,
+        0.7048
+      ],
+      "IoU": 0.0649,
+      "generated_caption": "a crazing defect is detected in the center region"
+    },
+    {
+      "image_id": "crazing_192.jpg",
+      "actual_class": "crazing",
+      "predicted_class": "crazing",
+      "actual_bbox_xyxy_normalized": [
+        0.085,
+        0.6,
+        0.645,
+        0.955
+      ],
+      "predicted_bbox_xyxy_normalized": [
+        0.1824,
+        0.2664,
+        0.7879,
+        0.7048
+      ],
+      "IoU": 0.1166,
+      "generated_caption": "a crazing defect is detected in the center region"
+    }
+  ]
+}
